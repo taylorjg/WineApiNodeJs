@@ -2,19 +2,19 @@
 
 Provides a fluent API for building URL's for Wine.com's API.
 
-## Links
+### Links
 
 * [Wine.com](http://www.wine.com)
 * [Wine.com Public API](https://api.wine.com)
 * [Signup to obtain a key](https://api.wine.com/signup)
 
-## Installation
+### Installation
 
 ```
 npm install WineApi
 ```
 
-## Example
+### Example
 
 ```js
 var $ = require("jquery");
@@ -46,8 +46,12 @@ $.ajax(
                 }
             }
         },
-        error: function (xhr, textStatus, errorThrown) {
-            console.log("An error occurred invoking the wine.com catalog service: " + errorThrown);
+        error: function (xhr, typeOfError, httpStatusText) {
+            console.log("An error occurred invoking the wine.com catalog service");
+            console.log("typeOfError: " + typeOfError);
+            if (httpStatusText) {
+                console.log("httpStatusText: " + httpStatusText);
+            }
         }
     });
 ```
