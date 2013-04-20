@@ -18,10 +18,14 @@
 
     function UrlBuilder(apiKeyConstructorParam, affiliateIdConstructorParam) {
 
-        var _version = "beta2";
+        var CATALOG_RESOURCE = "catalog";
+        var CATEGORYMAP_RESOURCE = "categorymap";
+        var REFERENCE_RESOURCE = "reference";
+
         var _apiKey = "SET-ME!";
         var _affiliateId;
         var _url = "";
+        var _version = "beta2";
 
         this.apiKey = function (newValue) {
             if (arguments.length === 1) {
@@ -54,7 +58,7 @@
 
         this.catalogService = function (options) {
 
-            _buildBaseUrl("catalog");
+            _buildBaseUrl(CATALOG_RESOURCE);
 
             options = options || {};
 
@@ -68,13 +72,13 @@
         };
 
         this.categoryMapService = function (/* options */) {
-            _buildBaseUrl("categoryMap");
+            _buildBaseUrl(CATEGORYMAP_RESOURCE);
             //options = options || {};
             return this;
         };
 
         this.referenceService = function (/* options */) {
-            _buildBaseUrl("reference");
+            _buildBaseUrl(REFERENCE_RESOURCE);
             //options = options || {};
             return this;
         };

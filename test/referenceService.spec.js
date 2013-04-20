@@ -17,6 +17,6 @@
     //var WineApi = require("../WineApi.js");
 // ReSharper restore UseOfImplicitGlobalInFunctionScope
 
-    describe("WineApi catalog queries", function () {
+    describe("WineApi reference library queries", function () {
     });
 } ());

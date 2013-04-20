@@ -14,8 +14,8 @@
                 files: [
                     "Gruntfile.js",
                     "WineApi.js",
-                    "examples/catalogService.js",
-                    "test/catalogService.spec.js"
+                    "examples/*.js",
+                    "test/*.spec.js"
                 ]
             },
 
