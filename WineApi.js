@@ -67,6 +67,8 @@
             this.categoriesFilter(options.categoriesFilter);
             this.ratingFilter(options.ratingFilter);
             this.priceFilter(options.priceFilter);
+            this.productFilter(options.productFilter);
+            this.search(options.search);
 
             return this;
         };
@@ -108,6 +110,16 @@
             return this;
         };
 
+        this.productFilter = function (value) {
+            _addProductFilterQueryStringParam(value);
+            return this;
+        };
+
+        this.search = function (value) {
+            _addSearchQueryStringParam(value);
+            return this;
+        };
+
         function _buildBaseUrl(serviceName) {
             _url = "http://services.wine.com/api/" + _version + "/service.svc/json/" + serviceName + "?apikey=" + _apiKey;
             if (!_.isUndefined(_affiliateId)) {
@@ -116,21 +128,28 @@
         }
 
         function _addQueryParamNameValue(name, value) {
-            if (_.isUndefined(value) || _.isNull(value)) {
+            if (_.isUndefined(value)) {
                 return;
             }
             _url = _url + "&" + name + "=" + value;
         }
 
         function _addCategoriesFilterQueryStringParam(value) {
-            if (_.isUndefined(value) || _.isNull(value)) {
+            if (_.isUndefined(value)) {
                 return;
             }
             _addMultiValueQueryStringParam("filter=categories", value);
         }
 
+        function _addProductFilterQueryStringParam(value) {
+            if (_.isUndefined(value)) {
+                return;
+            }
+            _addMultiValueQueryStringParam("filter=product", value);
+        }
+
         function _addMultiValueQueryStringParam(prefix, ids) {
-            if (_.isUndefined(ids) || _.isNull(ids)) {
+            if (_.isUndefined(ids)) {
                 return;
             }
             var filteredIds = _filterIds(ids);
@@ -140,7 +159,7 @@
         }
 
         function _addFromToQueryStringParam(prefix, value) {
-            if (_.isUndefined(value) || _.isNull(value)) {
+            if (_.isUndefined(value)) {
                 return;
             }
             if (_.isArray(value)) {
@@ -150,6 +169,16 @@
             } else {
                 _url = _url + "&" + prefix + "(" + value + ")";
             }
+        }
+
+        function _addSearchQueryStringParam(searchTerms) {
+            if (_.isUndefined(searchTerms)) {
+                return;
+            }
+            var SPACE_CHAR = " ";
+            var searchTermsWithCollapsedWhitespace = searchTerms.replace(/\s+/g, SPACE_CHAR).trim();
+            var words = searchTermsWithCollapsedWhitespace.split(SPACE_CHAR);
+            _url = _url + "&search=" + words.join("+");
         }
 
         function _filterIds(ids) {

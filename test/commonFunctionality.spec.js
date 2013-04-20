@@ -100,6 +100,10 @@
                 expect(wineApi.offset()).toBe(wineApi);
                 expect(wineApi.size()).toBe(wineApi);
                 expect(wineApi.categoriesFilter()).toBe(wineApi);
+                expect(wineApi.ratingFilter()).toBe(wineApi);
+                expect(wineApi.priceFilter()).toBe(wineApi);
+                expect(wineApi.productFilter()).toBe(wineApi);
+                expect(wineApi.search()).toBe(wineApi);
             });
         });
     });

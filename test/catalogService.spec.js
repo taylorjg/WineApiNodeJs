@@ -9,15 +9,16 @@
 
     "use strict";
 
-// ReSharper disable UseOfImplicitGlobalInFunctionScope
+    // ReSharper disable UseOfImplicitGlobalInFunctionScope
     require("jasmine-node");
-// ReSharper restore UseOfImplicitGlobalInFunctionScope
+    // ReSharper restore UseOfImplicitGlobalInFunctionScope
 
-// ReSharper disable UseOfImplicitGlobalInFunctionScope
+    // ReSharper disable UseOfImplicitGlobalInFunctionScope
     var WineApi = require("../WineApi.js");
-// ReSharper restore UseOfImplicitGlobalInFunctionScope
+    // ReSharper restore UseOfImplicitGlobalInFunctionScope
 
     describe("WineApi catalog queries", function () {
+
         describe("when called with no options", function () {
 
             it("should contain the name of the service before the query string question mark", function () {
@@ -75,21 +76,21 @@
 
             describe("categoriesFilter option", function () {
 
-                it("categories with a single value is handled correctly", function () {
+                it("categoriesFilter with a single value is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService({ categoriesFilter: 124 })
                         .url();
                     expect(url).toContain("&filter=categories(124)");
                 });
 
-                it("categories with a single value in an array is handled correctly", function () {
+                it("categoriesFilter with a single value in an array is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService({ categoriesFilter: [124] })
                         .url();
                     expect(url).toContain("&filter=categories(124)");
                 });
 
-                it("categories with 2 values is handled correctly", function () {
+                it("categoriesFilter with 2 values is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService({ categoriesFilter: [124, 125] })
                         .url();
@@ -99,21 +100,21 @@
 
             describe("ratingFilter option", function () {
 
-                it("rating with a single value is handled correctly", function () {
+                it("ratingFilter with a single value is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService({ ratingFilter: 92 })
                         .url();
                     expect(url).toContain("&filter=rating(92)");
                 });
 
-                it("rating with a single value in an array is handled correctly", function () {
+                it("ratingFilter with a single value in an array is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService({ ratingFilter: [92] })
                         .url();
                     expect(url).toContain("&filter=rating(92)");
                 });
 
-                it("rating with a 2 values is handled correctly", function () {
+                it("ratingFilter with a 2 values is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService({ ratingFilter: [92, 98] })
                         .url();
@@ -123,25 +124,73 @@
 
             describe("priceFilter option", function () {
 
-                it("price with a single value is handled correctly", function () {
+                it("priceFilter with a single value is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService({ priceFilter: 20 })
                         .url();
                     expect(url).toContain("&filter=price(20)");
                 });
 
-                it("price with a single value in an array is handled correctly", function () {
+                it("priceFilter with a single value in an array is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService({ priceFilter: [20] })
                         .url();
                     expect(url).toContain("&filter=price(20)");
                 });
 
-                it("price with a 2 values is handled correctly", function () {
+                it("priceFilter with a 2 values is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService({ priceFilter: [20, 50] })
                         .url();
                     expect(url).toContain("&filter=price(20|50)");
+                });
+            });
+
+            describe("productFilter option", function () {
+
+                it("productFilter with a single value is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService({ productFilter: 1234 })
+                        .url();
+                    expect(url).toContain("&filter=product(1234)");
+                });
+
+                it("productFilter with a single value in an array is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService({ productFilter: [1234] })
+                        .url();
+                    expect(url).toContain("&filter=product(1234)");
+                });
+
+                it("productFilter with 2 values is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService({ productFilter: [1234, 5678] })
+                        .url();
+                    expect(url).toContain("&filter=product(1234+5678)");
+                });
+            });
+
+            describe("search option", function () {
+
+                it("search with single word is handled correctly", function() {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService({ search: "gamay" })
+                        .url();
+                    expect(url).toContain("&search=gamay");
+                });
+
+                it("search with 2 words is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService({ search: "gamay french" })
+                        .url();
+                    expect(url).toContain("&search=gamay+french");
+                });
+
+                it("search with 2 words and extraneous whitespace is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService({ search: "    \t  gamay    french\t\t  " })
+                        .url();
+                    expect(url).toContain("&search=gamay+french");
                 });
             });
         });
@@ -170,7 +219,7 @@
 
             describe("categoriesFilter option", function () {
 
-                it("categories with a single value is handled correctly", function () {
+                it("categoriesFilter with a single value is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService()
                         .categoriesFilter(124)
@@ -178,7 +227,7 @@
                     expect(url).toContain("&filter=categories(124)");
                 });
 
-                it("categories with a single value in an array is handled correctly", function () {
+                it("categoriesFilter with a single value in an array is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService()
                         .categoriesFilter([124])
@@ -186,7 +235,7 @@
                     expect(url).toContain("&filter=categories(124)");
                 });
 
-                it("categories with 2 values is handled correctly", function () {
+                it("categoriesFilter with 2 values is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService()
                         .categoriesFilter([124, 125])
@@ -197,7 +246,7 @@
 
             describe("ratingFilter option", function () {
 
-                it("rating with a single value is handled correctly", function () {
+                it("ratingFilter with a single value is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService()
                         .ratingFilter(92)
@@ -205,7 +254,7 @@
                     expect(url).toContain("&filter=rating(92)");
                 });
 
-                it("rating with a single value in an array is handled correctly", function () {
+                it("ratingFilter with a single value in an array is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService()
                         .ratingFilter([92])
@@ -213,7 +262,7 @@
                     expect(url).toContain("&filter=rating(92)");
                 });
 
-                it("rating with a 2 values is handled correctly", function () {
+                it("ratingFilter with a 2 values is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService()
                         .ratingFilter([92, 98])
@@ -224,7 +273,7 @@
 
             describe("priceFilter option", function () {
 
-                it("price with a single value is handled correctly", function () {
+                it("priceFilter with a single value is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService()
                         .priceFilter(20)
@@ -232,7 +281,7 @@
                     expect(url).toContain("&filter=price(20)");
                 });
 
-                it("price with a single value in an array is handled correctly", function () {
+                it("priceFilter with a single value in an array is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService()
                         .priceFilter([20])
@@ -240,12 +289,66 @@
                     expect(url).toContain("&filter=price(20)");
                 });
 
-                it("price with a 2 values is handled correctly", function () {
+                it("priceFilter with a 2 values is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService()
                         .priceFilter([20, 50])
                         .url();
                     expect(url).toContain("&filter=price(20|50)");
+                });
+            });
+
+            describe("productFilter option", function () {
+
+                it("productFilter with a single value is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService()
+                        .productFilter(1234)
+                        .url();
+                    expect(url).toContain("&filter=product(1234)");
+                });
+
+                it("productFilter with a single value in an array is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService()
+                        .productFilter([1234])
+                        .url();
+                    expect(url).toContain("&filter=product(1234)");
+                });
+
+                it("productFilter with 2 values is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService()
+                        .productFilter([1234, 5678])
+                        .url();
+                    expect(url).toContain("&filter=product(1234+5678)");
+                });
+            });
+
+            describe("search option", function () {
+
+                it("search with single word is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService()
+                        .search("gamay")
+                        .url();
+                    expect(url).toContain("&search=gamay");
+                });
+
+                it("search with 2 words is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService()
+                        .search("gamay french")
+                        .url();
+                    expect(url).toContain("&search=gamay+french");
+                });
+
+                it("search with 2 words and extraneous whitespace is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService()
+                        .search("    \t  gamay    french\t\t  ")
+                        .url();
+                    expect(url).toContain("&search=gamay+french");
                 });
             });
         });

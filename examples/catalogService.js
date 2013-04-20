@@ -24,8 +24,7 @@
         .url();
 
     console.log("Invoking the wine.com catalog service...");
-    $.ajax(
-    {
+    $.ajax({
         dataType: "json",
         url: url,
         success: function (data) {
