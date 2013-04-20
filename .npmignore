@@ -1,0 +1,11 @@
+Gruntfile.js
+.jshintrc
+.gitignore
+*.sln
+*.sln.DotSettings
+*.sln.DotSettings.user
+*.suo
+WebWorkbench.mswwsettings
+test
+node_modules
+.grunt

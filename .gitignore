@@ -1,0 +1,7 @@
+*.sln
+*.sln.DotSettings
+*.sln.DotSettings.user
+*.suo
+WebWorkbench.mswwsettings
+node_modules
+.grunt
