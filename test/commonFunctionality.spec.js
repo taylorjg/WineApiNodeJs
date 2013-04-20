@@ -76,5 +76,31 @@
             wineApi.reset();
             expect(wineApi.url()).toBe("");
         });
+
+        it("instances of WineApi behave independently", function () {
+            var wineApi1 = new WineApi("apiKey1", "affiliateId1");
+            var wineApi2 = new WineApi("apiKey2", "affiliateId2");
+            expect(wineApi1.apiKey()).toBe("apiKey1");
+            expect(wineApi1.affiliateId()).toBe("affiliateId1");
+            expect(wineApi2.apiKey()).toBe("apiKey2");
+            expect(wineApi2.affiliateId()).toBe("affiliateId2");
+        });
+
+        describe("chaining", function () {
+
+            it("main service methods return this", function () {
+                var wineApi = new WineApi();
+                expect(wineApi.catalogService()).toBe(wineApi);
+                expect(wineApi.categoryMapService()).toBe(wineApi);
+                expect(wineApi.referenceService()).toBe(wineApi);
+            });
+
+            it("option methods return this", function () {
+                var wineApi = new WineApi();
+                expect(wineApi.offset()).toBe(wineApi);
+                expect(wineApi.size()).toBe(wineApi);
+                expect(wineApi.categoriesFilter()).toBe(wineApi);
+            });
+        });
     });
 } ());

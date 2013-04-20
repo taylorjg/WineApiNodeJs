@@ -6,6 +6,8 @@ Gruntfile.js
 *.sln.DotSettings.user
 *.suo
 WebWorkbench.mswwsettings
+npm-debug.log
+notes.txt
 test
 node_modules
 .grunt
