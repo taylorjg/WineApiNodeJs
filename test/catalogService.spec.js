@@ -172,7 +172,7 @@
 
             describe("search option", function () {
 
-                it("search with single word is handled correctly", function() {
+                it("search with single word is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService({ search: "gamay" })
                         .url();
@@ -191,6 +191,47 @@
                     var url = wineApi.catalogService({ search: "    \t  gamay    french\t\t  " })
                         .url();
                     expect(url).toContain("&search=gamay+french");
+                });
+            });
+
+            describe("state option", function () {
+
+                it("state is handled correctly", function() {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService({ state: "ca" })
+                        .url();
+                    expect(url).toContain("&state=CA");
+                });
+            });
+
+            describe("instock option", function () {
+
+                it("instock with a value of true is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService({ instock: true })
+                        .url();
+                    expect(url).toContain("&instock=true");
+                });
+
+                it("instock with some other truthy value is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService({ instock: "yes" })
+                        .url();
+                    expect(url).toContain("&instock=true");
+                });
+
+                it("instock with a value of false is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService({ instock: false })
+                        .url();
+                    expect(url).not.toContain("&instock=true");
+                });
+
+                it("instock with some other falsy value is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService({ instock: 0 })
+                        .url();
+                    expect(url).not.toContain("&instock=true");
                 });
             });
         });
@@ -349,6 +390,60 @@
                         .search("    \t  gamay    french\t\t  ")
                         .url();
                     expect(url).toContain("&search=gamay+french");
+                });
+            });
+
+            describe("state option", function () {
+
+                it("state is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService()
+                        .state("ca")
+                        .url();
+                    expect(url).toContain("&state=CA");
+                });
+            });
+
+            describe("instock option", function () {
+
+                it("instock with a value of true is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService()
+                        .instock(true)
+                        .url();
+                    expect(url).toContain("&instock=true");
+                });
+
+                it("instock with some other truthy value is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService()
+                        .instock("yes")
+                        .url();
+                    expect(url).toContain("&instock=true");
+                });
+
+                it("instock with no value is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService()
+                        .instock()
+                        .url();
+                    expect(url).toContain("&instock=true");
+                });
+
+                it("instock with a value of false is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService()
+                        .instock(false)
+                        .url();
+                    expect(url).not.toContain("&instock=true");
+                });
+
+                it("instock with some other falsy value is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService()
+                        .instock(0)
+                        .url();
+                    expect(url).not.toContain("&instock=true");
                 });
             });
         });
