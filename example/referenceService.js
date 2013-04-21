@@ -17,7 +17,7 @@
     // ReSharper restore InconsistentNaming
     // ReSharper restore UseOfImplicitGlobalInFunctionScope
 
-    var wineApi = new WineApi("2fd879a5765785c043cc992b550d2bda");
+    var wineApi = new WineApi("insert-your-key-here");
 
     var url = wineApi.referenceService()
         .categoriesFilter(2089)
