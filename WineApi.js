@@ -13,7 +13,7 @@
     // ReSharper restore UseOfImplicitGlobalInFunctionScope
 
     // ReSharper disable UseOfImplicitGlobalInFunctionScope
-    module.exports = UrlBuilder;
+    module.exports = WineApi;
     // ReSharper restore UseOfImplicitGlobalInFunctionScope
 
     var CATALOG_RESOURCE = "catalog";
@@ -36,7 +36,7 @@
             "descending"
         ];
 
-    function UrlBuilder(apiKeyConstructorParam, affiliateIdConstructorParam) {
+    function WineApi(apiKeyConstructorParam, affiliateIdConstructorParam) {
 
         var _apiKey = "SET-ME!";
         var _affiliateId;

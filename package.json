@@ -9,7 +9,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "node_modules\\.bin\\jasmine-node --verbose test"
+    "test": "node_modules\\.bin\\jasmine-node test"
   },
   "repository": {
     "type": "git",
