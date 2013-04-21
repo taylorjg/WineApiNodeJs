@@ -92,15 +92,24 @@
             return this;
         };
 
-        this.categoryMapService = function (/* options */) {
+        this.categoryMapService = function (options) {
+
             _buildBaseUrl(CATEGORYMAP_RESOURCE);
-            //options = options || {};
+
+            options = options || {};
+
+            this.categoriesFilter(options.categoriesFilter);
+            this.ratingFilter(options.ratingFilter);
+            this.search(options.search);
+            this.show(options.show);
+
             return this;
         };
 
-        this.referenceService = function (/* options */) {
+        this.referenceService = function (options) {
             _buildBaseUrl(REFERENCE_RESOURCE);
-            //options = options || {};
+            options = options || {};
+            this.categoriesFilter(options.categoriesFilter);
             return this;
         };
 
@@ -158,6 +167,11 @@
             return this;
         };
 
+        this.show = function (value) {
+            _addShowQueryStringParam(value);
+            return this;
+        };
+
         function _buildBaseUrl(serviceName) {
             _url = "http://services.wine.com/api/" + _version + "/service.svc/json/" + serviceName + "?apikey=" + _apiKey;
             if (!_.isUndefined(_affiliateId)) {
@@ -196,6 +210,13 @@
             if (arguments.length === 0 || value) {
                 _url = _url + "&instock=true";
             }
+        }
+
+        function _addShowQueryStringParam(value) {
+            if (_.isUndefined(value)) {
+                return;
+            }
+            _addMultiValueQueryStringParam("show=", value);
         }
 
         function _addMultiValueQueryStringParam(prefix, ids) {

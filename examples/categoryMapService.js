@@ -20,9 +20,10 @@
     var wineApi = new WineApi("2fd879a5765785c043cc992b550d2bda");
 
     var url = wineApi.categoryMapService()
+        .show([4, 5, 1, 6])
         .url();
 
-    console.log("Invoking the wine.com catalog service...");
+    console.log("Invoking the wine.com categorymap service...");
     $.ajax({
         dataType: "json",
         url: url,
@@ -36,7 +37,7 @@
             }
         },
         error: function (xhr, typeOfError, httpStatusText) {
-            console.log("An error occurred invoking the wine.com catalog service");
+            console.log("An error occurred invoking the wine.com categorymap service");
             console.log("typeOfError: " + typeOfError);
             if (httpStatusText) {
                 console.log("httpStatusText: " + httpStatusText);

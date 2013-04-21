@@ -22,7 +22,7 @@
     var url = wineApi.referenceService()
         .url();
 
-    console.log("Invoking the wine.com catalog service...");
+    console.log("Invoking the wine.com reference service...");
     $.ajax( {
         dataType: "json",
         url: url,
@@ -36,7 +36,7 @@
             }
         },
         error: function (xhr, typeOfError, httpStatusText) {
-            console.log("An error occurred invoking the wine.com catalog service");
+            console.log("An error occurred invoking the wine.com reference service");
             console.log("typeOfError: " + typeOfError);
             if (httpStatusText) {
                 console.log("httpStatusText: " + httpStatusText);
