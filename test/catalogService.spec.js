@@ -19,41 +19,6 @@
 
     describe("WineApi catalog queries", function () {
 
-        describe("when called with no options", function () {
-
-            it("should contain the name of the service before the query string question mark", function () {
-                var wineApi = new WineApi();
-                var url = wineApi.catalogService()
-                        .url();
-                expect(url).toContain("/json/catalog?");
-            });
-
-            it("should contain the apikey name/value pair after the query string question mark", function () {
-                var myApiKey = "MyApiKeyValue";
-                var wineApi = new WineApi(myApiKey);
-                var url = wineApi.catalogService()
-                        .url();
-                expect(url).toContain("?apikey=" + myApiKey);
-            });
-
-            it("should contain the affiliateId name/value pair if affiliateId value was passed to the constructor", function () {
-                var myApiKey = "MyApiKeyValue";
-                var myAffiliateId = "MyAffiliateIdValue";
-                var wineApi = new WineApi(myApiKey, myAffiliateId);
-                var url = wineApi.catalogService()
-                        .url();
-                expect(url).toContain("&affiliateId=" + myAffiliateId);
-            });
-
-            it("should not contain the affiliateId name/value pair if no affiliateId value was passed to the constructor", function () {
-                var myApiKey = "MyApiKeyValue";
-                var wineApi = new WineApi(myApiKey);
-                var url = wineApi.catalogService()
-                        .url();
-                expect(url).not.toContain("&affiliateId=");
-            });
-        });
-
         describe("when called with various options passed as a param", function () {
 
             describe("offset option", function () {

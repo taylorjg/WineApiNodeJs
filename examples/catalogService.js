@@ -3,19 +3,19 @@
 
 /* global require */
 
-(function () {
+(function() {
 
     "use strict";
 
-// ReSharper disable UseOfImplicitGlobalInFunctionScope
+    // ReSharper disable UseOfImplicitGlobalInFunctionScope
     var $ = require("jquery");
-// ReSharper restore UseOfImplicitGlobalInFunctionScope
+    // ReSharper restore UseOfImplicitGlobalInFunctionScope
 
-// ReSharper disable UseOfImplicitGlobalInFunctionScope
-// ReSharper disable InconsistentNaming
+    // ReSharper disable UseOfImplicitGlobalInFunctionScope
+    // ReSharper disable InconsistentNaming
     var WineApi = require("../WineApi.js");
-// ReSharper restore InconsistentNaming
-// ReSharper restore UseOfImplicitGlobalInFunctionScope
+    // ReSharper restore InconsistentNaming
+    // ReSharper restore UseOfImplicitGlobalInFunctionScope
 
     var wineApi = new WineApi("2fd879a5765785c043cc992b550d2bda");
 
@@ -31,7 +31,7 @@
     $.ajax({
         dataType: "json",
         url: url,
-        success: function (data) {
+        success: function(data) {
             if (data.Status.ReturnCode === 0) {
                 console.log("Products.Total: " + data.Products.Total);
                 for (var productIndex = 0; productIndex < data.Products.List.length; productIndex++) {
@@ -43,7 +43,7 @@
                 }
             }
         },
-        error: function (xhr, typeOfError, httpStatusText) {
+        error: function(xhr, typeOfError, httpStatusText) {
             console.log("An error occurred invoking the wine.com catalog service");
             console.log("typeOfError: " + typeOfError);
             if (httpStatusText) {
@@ -51,4 +51,4 @@
             }
         }
     });
-} ());
+}());

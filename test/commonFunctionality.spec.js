@@ -109,5 +109,60 @@
                 expect(wineApi.sort()).toBe(wineApi);
             });
         });
+
+        describe("when a service is called with no options then the url", function () {
+
+            var _testServiceName = function (wineApi, serviceFunction, serviceName) {
+                wineApi.reset();
+                var url = serviceFunction.call(wineApi).url();
+                expect(url).toContain("/json/" + serviceName + "?");
+            };
+
+            var _testApiKey = function (wineApi, serviceFunction) {
+                wineApi.reset();
+                var url = serviceFunction.call(wineApi).url();
+                expect(url).toContain("?apikey=" + wineApi.apiKey());
+            };
+
+            var _testAffiliateId = function (wineApi, serviceFunction) {
+                wineApi.reset();
+                var url = serviceFunction.call(wineApi).url();
+                expect(url).toContain("&affiliateId=" + wineApi.affiliateId());
+            };
+
+            var _testAbsenceOfAffiliateId = function (wineApi, serviceFunction) {
+                wineApi.reset();
+                var url = serviceFunction.call(wineApi).url();
+                expect(url).not.toContain("&affiliateId=");
+            };
+
+            it("should contain the name of the service before the query string question mark", function () {
+                var wineApi = new WineApi();
+                _testServiceName(wineApi, wineApi.catalogService, "catalog");
+                _testServiceName(wineApi, wineApi.categoryMapService, "categorymap");
+                _testServiceName(wineApi, wineApi.referenceService, "reference");
+            });
+
+            it("should contain the apikey name/value pair after the query string question mark", function () {
+                var wineApi = new WineApi("MyApiKeyValue");
+                _testApiKey(wineApi, wineApi.catalogService);
+                _testApiKey(wineApi, wineApi.categoryMapService);
+                _testApiKey(wineApi, wineApi.referenceService);
+            });
+
+            it("should contain the affiliateId name/value pair if affiliateId value was passed to the constructor", function () {
+                var wineApi = new WineApi("MyApiKeyValue", "MyAffiliateIdValue");
+                _testAffiliateId(wineApi, wineApi.catalogService);
+                _testAffiliateId(wineApi, wineApi.categoryMapService);
+                _testAffiliateId(wineApi, wineApi.referenceService);
+            });
+
+            it("should not contain the affiliateId name/value pair if no affiliateId value was passed to the constructor", function () {
+                var wineApi = new WineApi("MyApiKeyValue");
+                _testAbsenceOfAffiliateId(wineApi, wineApi.catalogService);
+                _testAbsenceOfAffiliateId(wineApi, wineApi.categoryMapService);
+                _testAbsenceOfAffiliateId(wineApi, wineApi.referenceService);
+            });
+        });
     });
 } ());

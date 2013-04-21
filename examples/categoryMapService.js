@@ -3,7 +3,7 @@
 
 /* global require */
 
-(function () {
+(function() {
 
     "use strict";
 
@@ -27,7 +27,7 @@
     $.ajax({
         dataType: "json",
         url: url,
-        success: function (data) {
+        success: function(data) {
             if (data.Status.ReturnCode === 0) {
                 console.log(data);
             } else {
@@ -36,7 +36,7 @@
                 }
             }
         },
-        error: function (xhr, typeOfError, httpStatusText) {
+        error: function(xhr, typeOfError, httpStatusText) {
             console.log("An error occurred invoking the wine.com categorymap service");
             console.log("typeOfError: " + typeOfError);
             if (httpStatusText) {
@@ -44,4 +44,4 @@
             }
         }
     });
-} ());
+}());
