@@ -5,7 +5,7 @@
   "homepage": "https://github.com/taylorjg/WineApiNodeJs",
   "main": "WineApi.js",
   "directories": {
-    "examples": "examples",
+    "example": "example",
     "test": "test"
   },
   "scripts": {
