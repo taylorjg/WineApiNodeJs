@@ -104,6 +104,9 @@
                 expect(wineApi.priceFilter()).toBe(wineApi);
                 expect(wineApi.productFilter()).toBe(wineApi);
                 expect(wineApi.search()).toBe(wineApi);
+                expect(wineApi.state()).toBe(wineApi);
+                expect(wineApi.instock()).toBe(wineApi);
+                expect(wineApi.sort()).toBe(wineApi);
             });
         });
     });

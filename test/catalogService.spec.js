@@ -196,7 +196,7 @@
 
             describe("state option", function () {
 
-                it("state is handled correctly", function() {
+                it("state is handled correctly", function () {
                     var wineApi = new WineApi();
                     var url = wineApi.catalogService({ state: "ca" })
                         .url();
@@ -232,6 +232,86 @@
                     var url = wineApi.catalogService({ instock: 0 })
                         .url();
                     expect(url).not.toContain("&instock=true");
+                });
+            });
+
+            describe("sort option", function () {
+
+                var _testSortOptionOnItsOwn = function (sortOption) {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService({ sort: sortOption })
+                        .url();
+                    expect(url).toContain("&sort=" + sortOption + "|descending");
+                };
+
+                var _testSortOptionOnItsOwnInAnArray = function (sortOption) {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService({ sort: [sortOption] })
+                        .url();
+                    expect(url).toContain("&sort=" + sortOption + "|descending");
+                };
+
+                var _testSortOptionAndDirection = function (sortOption, sortDirection) {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService({ sort: [sortOption, sortDirection] })
+                        .url();
+                    expect(url).toContain("&sort=" + sortOption + "|" + sortDirection);
+                };
+
+                it("valid sort option on its own is handled correctly", function () {
+                    _testSortOptionOnItsOwn("popularity");
+                    _testSortOptionOnItsOwn("rating");
+                    _testSortOptionOnItsOwn("vintage");
+                    _testSortOptionOnItsOwn("winery");
+                    _testSortOptionOnItsOwn("name");
+                    _testSortOptionOnItsOwn("price");
+                    _testSortOptionOnItsOwn("saving");
+                    _testSortOptionOnItsOwn("justin");
+                });
+
+                it("valid sort option on its own in an array is handled correctly", function () {
+                    _testSortOptionOnItsOwnInAnArray("popularity");
+                    _testSortOptionOnItsOwnInAnArray("rating");
+                    _testSortOptionOnItsOwnInAnArray("vintage");
+                    _testSortOptionOnItsOwnInAnArray("winery");
+                    _testSortOptionOnItsOwnInAnArray("name");
+                    _testSortOptionOnItsOwnInAnArray("price");
+                    _testSortOptionOnItsOwnInAnArray("saving");
+                    _testSortOptionOnItsOwnInAnArray("justin");
+                });
+
+                it("valid sort option and valid sort direction are handled correctly", function () {
+                    _testSortOptionAndDirection("popularity", "ascending");
+                    _testSortOptionAndDirection("rating", "ascending");
+                    _testSortOptionAndDirection("vintage", "ascending");
+                    _testSortOptionAndDirection("winery", "ascending");
+                    _testSortOptionAndDirection("name", "ascending");
+                    _testSortOptionAndDirection("price", "ascending");
+                    _testSortOptionAndDirection("saving", "ascending");
+                    _testSortOptionAndDirection("justin", "ascending");
+
+                    _testSortOptionAndDirection("popularity", "descending");
+                    _testSortOptionAndDirection("rating", "descending");
+                    _testSortOptionAndDirection("vintage", "descending");
+                    _testSortOptionAndDirection("winery", "descending");
+                    _testSortOptionAndDirection("name", "descending");
+                    _testSortOptionAndDirection("price", "descending");
+                    _testSortOptionAndDirection("saving", "descending");
+                    _testSortOptionAndDirection("justin", "descending");
+                });
+
+                it("invalid sort option is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService({ sort: "bogus"})
+                        .url();
+                    expect(url).not.toContain("&sort=");
+                });
+
+                it("invalid sort direction is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService({ sort: ["name", "bogus"] })
+                        .url();
+                    expect(url).not.toContain("&sort=");
                 });
             });
         });
@@ -444,6 +524,89 @@
                         .instock(0)
                         .url();
                     expect(url).not.toContain("&instock=true");
+                });
+            });
+
+            describe("sort option", function () {
+
+                var _testSortOptionOnItsOwn = function (sortOption) {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService()
+                        .sort(sortOption)
+                        .url();
+                    expect(url).toContain("&sort=" + sortOption + "|descending");
+                };
+
+                var _testSortOptionOnItsOwnInAnArray = function (sortOption) {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService()
+                        .sort([sortOption])
+                        .url();
+                    expect(url).toContain("&sort=" + sortOption + "|descending");
+                };
+
+                var _testSortOptionAndDirection = function (sortOption, sortDirection) {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService()
+                        .sort([sortOption, sortDirection])
+                        .url();
+                    expect(url).toContain("&sort=" + sortOption + "|" + sortDirection);
+                };
+
+                it("valid sort option on its own is handled correctly", function () {
+                    _testSortOptionOnItsOwn("popularity");
+                    _testSortOptionOnItsOwn("rating");
+                    _testSortOptionOnItsOwn("vintage");
+                    _testSortOptionOnItsOwn("winery");
+                    _testSortOptionOnItsOwn("name");
+                    _testSortOptionOnItsOwn("price");
+                    _testSortOptionOnItsOwn("saving");
+                    _testSortOptionOnItsOwn("justin");
+                });
+
+                it("valid sort option on its own in an array is handled correctly", function () {
+                    _testSortOptionOnItsOwnInAnArray("popularity");
+                    _testSortOptionOnItsOwnInAnArray("rating");
+                    _testSortOptionOnItsOwnInAnArray("vintage");
+                    _testSortOptionOnItsOwnInAnArray("winery");
+                    _testSortOptionOnItsOwnInAnArray("name");
+                    _testSortOptionOnItsOwnInAnArray("price");
+                    _testSortOptionOnItsOwnInAnArray("saving");
+                    _testSortOptionOnItsOwnInAnArray("justin");
+                });
+
+                it("valid sort option and valid sort direction are handled correctly", function () {
+                    _testSortOptionAndDirection("popularity", "ascending");
+                    _testSortOptionAndDirection("rating", "ascending");
+                    _testSortOptionAndDirection("vintage", "ascending");
+                    _testSortOptionAndDirection("winery", "ascending");
+                    _testSortOptionAndDirection("name", "ascending");
+                    _testSortOptionAndDirection("price", "ascending");
+                    _testSortOptionAndDirection("saving", "ascending");
+                    _testSortOptionAndDirection("justin", "ascending");
+
+                    _testSortOptionAndDirection("popularity", "descending");
+                    _testSortOptionAndDirection("rating", "descending");
+                    _testSortOptionAndDirection("vintage", "descending");
+                    _testSortOptionAndDirection("winery", "descending");
+                    _testSortOptionAndDirection("name", "descending");
+                    _testSortOptionAndDirection("price", "descending");
+                    _testSortOptionAndDirection("saving", "descending");
+                    _testSortOptionAndDirection("justin", "descending");
+                });
+
+                it("invalid sort option is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService({ sort: "bogus" })
+                        .url();
+                    expect(url).not.toContain("&sort=");
+                });
+
+                it("invalid sort direction is handled correctly", function () {
+                    var wineApi = new WineApi();
+                    var url = wineApi.catalogService({ sort: ["name", "bogus"] })
+                        .url();
+                    expect(url).not.toContain("&sort=");
                 });
             });
         });

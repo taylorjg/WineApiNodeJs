@@ -20,7 +20,11 @@
     var wineApi = new WineApi("2fd879a5765785c043cc992b550d2bda");
 
     var url = wineApi.catalogService()
-        .categoriesFilter(126)
+        .categoriesFilter(124)
+        .search("merlot")
+        .sort(["price", "descending"])
+        .state("CA")
+        .instock()
         .url();
 
     console.log("Invoking the wine.com catalog service...");

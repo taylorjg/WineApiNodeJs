@@ -16,11 +16,27 @@
     module.exports = UrlBuilder;
     // ReSharper restore UseOfImplicitGlobalInFunctionScope
 
-    function UrlBuilder(apiKeyConstructorParam, affiliateIdConstructorParam) {
+    var CATALOG_RESOURCE = "catalog";
+    var CATEGORYMAP_RESOURCE = "categorymap";
+    var REFERENCE_RESOURCE = "reference";
 
-        var CATALOG_RESOURCE = "catalog";
-        var CATEGORYMAP_RESOURCE = "categorymap";
-        var REFERENCE_RESOURCE = "reference";
+    var validSortOptions = [
+            "popularity",
+            "rating",
+            "vintage",
+            "winery",
+            "name",
+            "price",
+            "saving",
+            "justin"
+        ];
+
+    var validSortDirections = [
+            "ascending",
+            "descending"
+        ];
+
+    function UrlBuilder(apiKeyConstructorParam, affiliateIdConstructorParam) {
 
         var _apiKey = "SET-ME!";
         var _affiliateId;
@@ -71,6 +87,7 @@
             this.search(options.search);
             this.state(options.state);
             this.instock(options.instock);
+            this.sort(options.sort);
 
             return this;
         };
@@ -133,6 +150,11 @@
             } else {
                 _addInstockQueryStringParam();
             }
+            return this;
+        };
+
+        this.sort = function (value) {
+            _addSortQueryStringParam(value);
             return this;
         };
 
@@ -219,6 +241,53 @@
                 }
             }
             return filteredIds;
+        }
+
+        function _addSortQueryStringParam(value) {
+            if (_.isUndefined(value)) {
+                return;
+            }
+            if (_.isArray(value)) {
+                if (value.length === 1) {
+                    _addSortQueryStringParamHelper(value[0], "descending");
+                } else {
+                    if (value.length === 2) {
+                        _addSortQueryStringParamHelper(value[0], value[1]);
+                    } else {
+                        return;
+                    }
+                }
+            } else {
+                _addSortQueryStringParamHelper(value, "descending");
+            }
+        }
+
+        function _addSortQueryStringParamHelper(sortOption, sortDirection) {
+
+            var sortOptionIsValid = false;
+            var sortDirectionIsValid = false;
+            var i;
+
+            sortOption = sortOption.toLowerCase();
+            sortDirection = sortDirection.toLowerCase();
+
+            for (i = 0; i < validSortOptions.length; i++) {
+                if (sortOption === validSortOptions[i]) {
+                    sortOptionIsValid = true;
+                    break;
+                }
+            }
+
+            for (i = 0; i < validSortDirections.length; i++) {
+                if (sortDirection === validSortDirections[i]) {
+                    sortDirectionIsValid = true;
+                    break;
+                }
+            }
+
+            if (sortOptionIsValid && sortDirectionIsValid) {
+                _url = _url + "&sort=" + sortOption + "|" + sortDirection;
+            }
         }
 
         if (arguments.length >= 1) {
