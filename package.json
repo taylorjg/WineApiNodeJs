@@ -1,6 +1,6 @@
 {
   "name": "WineApi",
-  "version": "0.0.0",
+  "version": "0.1.1",
   "description": "Provides a fluent API for building URL's for Wine.com's API.",
   "homepage": "https://github.com/taylorjg/WineApiNodeJs",
   "main": "WineApi.js",

@@ -1,5 +1,3 @@
-Gruntfile.js
-.jshintrc
 .gitignore
 *.sln
 *.sln.DotSettings
@@ -8,6 +6,5 @@ Gruntfile.js
 WebWorkbench.mswwsettings
 npm-debug.log
 notes.txt
-test
 node_modules
 .grunt
