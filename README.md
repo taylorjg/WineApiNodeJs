@@ -30,8 +30,7 @@ var url = wineApi.catalogService()
     .url();
 
 console.log("Invoking wine.com catalog service...");
-$.ajax(
-    {
+$.ajax({
         dataType: "json",
         url: url,
         success: function (data) {
