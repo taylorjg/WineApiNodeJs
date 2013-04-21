@@ -1,4 +1,5 @@
 .gitignore
+.npmignore
 *.sln
 *.sln.DotSettings
 *.sln.DotSettings.user
